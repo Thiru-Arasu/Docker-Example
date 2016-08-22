@@ -12,6 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <image> webapp/tomcat7 </image>
   </properties>
 
   <dependencies>
@@ -28,4 +29,26 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.1.1</version>
+        <executions>
+          <execution>
+            <id>image-package</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable> ./build.sh </executable>
+        </configuration>
+      </plugin>
+   </plugins>
+ </build>
 </project>
