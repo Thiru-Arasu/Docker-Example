@@ -8,7 +8,7 @@
   
 ## Clone the project
 ```
-  https://github.com/Thiru-Arasu/Docker-Example.git
+  git clone https://github.com/Thiru-Arasu/Docker-Example.git
 ```
 
 ## Build the app
