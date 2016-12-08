@@ -10,11 +10,15 @@ RUN apt-get install oracle-java8-installer -y
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Install tomcat7
-RUN wget https://www.apache.org/dist/tomcat/tomcat-7/v7.0.70/bin/apache-tomcat-7.0.70.tar.gz \ 
-      -O /usr/share/apache-tomcat-7.0.70.tar.gz
-RUN cd /usr/share && tar -zxvf apache-tomcat-7.0.70.tar.gz
-COPY target/App-in-tomcat7-1.0-SNAPSHOT.war \ 
-	/usr/share/apache-tomcat-7.0.70/webapps/App-in-tomcat7-1.0-SNAPSHOT.war
-
+RUN apt-get install tomcat7 -y
+COPY target/App-in-tomcat7-1.0-SNAPSHOT.war /var/lib/tomcat7/webapps/
+ENV CATALINA_BASE="/var/lib/tomcat7"
+ENV CATALINA_HOME="/usr/share/tomcat7"
+ENV CATALINA_TMPDIR="/tmp/tomcat7-tomcat7-tmp"
+ENV JAVA_HOME="/usr/lib/jvm/java-8-oracle/"
+RUN mkdir -p /tmp/tomcat7-tomcat7-tmp
 EXPOSE 8080
-CMD ["/usr/share/apache-tomcat-7.0.70/bin/catalina.sh", "run"]
+
+RUN echo "tomcat7 ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+USER tomcat7
+CMD ["/usr/share/tomcat7/bin/catalina.sh", "run"]
